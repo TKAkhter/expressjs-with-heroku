@@ -38,4 +38,21 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.get('/profile', (req, res) => {
+  res.send('here is your profile')
+})
+app.post('/profile', (req, res) => {
+  res.send('profile created')
+})
+app.put('/profile', (req, res) => {
+  res.send('profile updated')
+})
+app.delete('/profile', (req, res) => {
+  res.send('profile deleted')
+})
+
 module.exports = app;
