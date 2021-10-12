@@ -140,13 +140,12 @@ function RealtimeTodo() {
                 elevation={3}
               >
                 <ListItem
+                  onClick={() => {
+                    del(eachTodo.id);
+                  }}
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon
-                        onClick={() => {
-                          del(eachTodo.id);
-                        }}
-                      />
+                      <DeleteIcon />
                     </IconButton>
                   }
                 >

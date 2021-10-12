@@ -11,7 +11,7 @@ import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import * as yup from "yup";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 
@@ -22,8 +22,11 @@ const validationSchema = yup.object({
 });
 
 async function del(id) {
-  await userCol.doc(id).delete();
+  // await userCol.doc(id).delete();
+  await deleteDoc(doc(db, "todo",id));
   // await deleteField (ref(db, `/realTimeTodo/${id}`));
+  console.log("Document deleted with ID: ", id);
+  alert("Todo Deleted");
 }
 
 function Todo() {
@@ -37,7 +40,7 @@ function Todo() {
       querySnapshot.forEach((doc) => {
         let keyObj = { id: doc.id };
         todo.push({ ...keyObj, ...doc.data() });
-        console.log(todo);
+        // console.log(todo);
       });
       settodo(todo);
     };
@@ -139,13 +142,12 @@ function Todo() {
                 id={eachTodo.id ? eachTodo.id : i}
               >
                 <ListItem
+                  onClick={() => {
+                    del(eachTodo.id);
+                  }}
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon
-                        onClick={() => {
-                          del(eachTodo.id);
-                        }}
-                      />
+                      <DeleteIcon />
                     </IconButton>
                   }
                 >
